@@ -19,7 +19,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 ### Removed
 
 - Remove support for PHP 7.2
-- Remove support for Laravel 5.6
+- Remove support for Laravel 5
 
 ## 2.0.1
 
