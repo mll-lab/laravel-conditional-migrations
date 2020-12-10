@@ -2,7 +2,7 @@
 
 namespace MLL\ConditionalMigrations\Tests;
 
-use Illuminate\Database\Capsule\Manager as DB;
+use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use Illuminate\Database\Migrations\DatabaseMigrationRepository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
@@ -24,32 +24,31 @@ class MigratorTest extends TestCase
     {
         parent::setUp();
 
-        $this->db = $db = new DB;
+        $this->db = $db = new CapsuleManager;
 
         $db->addConnection([
             'driver' => 'sqlite',
             'database' => ':memory:',
         ]);
-
         $db->setAsGlobal();
 
         $this->app->instance('db', $db->getDatabaseManager());
 
+        $repository = new DatabaseMigrationRepository($db->getDatabaseManager(), 'migrations');
+        if (! $repository->repositoryExists()) {
+            $repository->createRepository();
+        }
+
         $this->migrator = new Migrator(
-            $repository = new DatabaseMigrationRepository($db->getDatabaseManager(), 'migrations'),
+            $repository,
             $db->getDatabaseManager(),
             new Filesystem,
             new Dispatcher($this->app),
             $this->app->get('config')
         );
-
-        if (! $repository->repositoryExists()) {
-            $repository->createRepository();
-        }
     }
 
-    /** @test */
-    public function it_handles_regular_migrations_normally()
+    public function test_handles_regular_migrations_normally(): void
     {
         $this->migrator->run([
             __DIR__.'/migrations/always',
@@ -58,8 +57,7 @@ class MigratorTest extends TestCase
         $this->assertTrue($this->db->schema()->hasTable('unconditional_users'));
     }
 
-    /** @test */
-    public function it_skips_migrations_that_should_not_run()
+    public function test_skips_migrations_that_should_not_run(): void
     {
         $this->migrator->run([
             __DIR__.'/migrations/always',
@@ -71,8 +69,7 @@ class MigratorTest extends TestCase
         $this->assertFalse($this->db->schema()->hasTable('conditional_users_two'));
     }
 
-    /** @test */
-    public function the_configuration_values_take_precendence_over_individual_configuration()
+    public function test_configuration_values_take_precedence_over_individual_configuration(): void
     {
         $this->app->get('config')->set('conditional-migrations.always_run', true);
 

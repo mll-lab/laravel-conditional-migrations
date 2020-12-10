@@ -29,13 +29,6 @@ class Migrator extends LaravelMigrator
         $this->config = $config;
     }
 
-    /**
-     * @see \Illuminate\Database\Migrations\Migrator::runUp
-     *
-     * @param  string  $file
-     * @param  int  $batch
-     * @param  bool  $pretend
-     */
     protected function runUp($file, $batch, $pretend): void
     {
         // First we will resolve a "real" instance of the migration class from this

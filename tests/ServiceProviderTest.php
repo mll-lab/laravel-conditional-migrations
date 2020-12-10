@@ -10,8 +10,7 @@ class ServiceProviderTest extends TestCase
 {
     use ServiceProviderTrait;
 
-    /** @test */
-    public function the_migrator_is_replaced_in_the_container()
+    public function test_migrator_is_replaced_in_the_container(): void
     {
         $this->assertTrue($this->app->has('migrator'));
 
