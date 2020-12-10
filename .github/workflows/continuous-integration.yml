@@ -68,7 +68,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           coverage: none
-          extensions: "mbstring"
+          extensions: mbstring, sqlite
           php-version: ${{ matrix.php-version }}
 
       - name: "Install dependencies with composer"
