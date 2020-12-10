@@ -81,6 +81,9 @@ jobs:
       - name: "Run unit tests with phpunit/phpunit"
         run: vendor/bin/phpunit
 
+      - name: "Run static analysis with phpstan"
+        run: vendor/bin/phpstan analyse
+
   code-coverage:
     name: "Code Coverage"
 
