@@ -1,4 +1,9 @@
-# Laravel Conditional Migrations
+# Deprecated:
+## We don't maintain this version anymore, checkout [Laravel conditional migrations](https://github.com/mll-lab/laravel-conditional-migrations) for the latest version
+
+---
+
+## Laravel Conditional Migrations
 
 [![CI Status](https://github.com/mll-lab/laravel-conditional-migrations/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/laravel-conditional-migrations/actions)
 [![codecov](https://codecov.io/gh/mll-lab/laravel-conditional-migrations/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/laravel-conditional-migrations)
